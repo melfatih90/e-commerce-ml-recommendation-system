@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Recommendations</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Fashion Store</h1>
+
+        <h2>Browse Products</h2>
+        <div class="products">
+            {% for product in products %}
+            <div class="product-card">
+                <img src="{{ product.image_url }}" alt="{{ product.product_name }}">
+                <h3>{{ product.product_name }}</h3>
+                <p>Category: {{ product.category }}</p>
+                <p>SubCategory: {{ product.subcategory }}</p>
+                <p>Type: {{ product.product_type }}</p>
+                <a href="/recommendations?product_id={{ product.product_id }}" class="btn">View Recommendations</a>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if recommendations %}
+        <h2>Recommended Products</h2>
+        <div class="products">
+            {% for rec in recommendations %}
+            <div class="product-card">
+                <img src="{{ rec.image_url }}" alt="{{ rec.product_name }}">
+                <h3>{{ rec.product_name }}</h3>
+                <p>Category: {{ rec.category }}</p>
+                <p>SubCategory: {{ rec.subcategory }}</p>
+                <p>Type: {{ rec.product_type }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

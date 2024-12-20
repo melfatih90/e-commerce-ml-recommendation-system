@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Product Details - Fashion Store{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- عنوان الصفحة -->
+    <h1 class="text-center mb-4 text-primary">Product Details</h1>
+
+    <!-- تفاصيل المنتج -->
+    <div class="row align-items-center">
+        <div class="col-md-6 text-center">
+            <!-- صورة المنتج -->
+            <img src="{{ product.image_url }}" 
+                 class="img-fluid rounded shadow-sm border" 
+                 alt="{{ product.product_name }}" 
+                 style="max-height: 400px; object-fit: contain;">
+        </div>
+        <div class="col-md-6">
+            <!-- معلومات المنتج -->
+            <h2 class="text-dark fw-bold">{{ product.product_name }}</h2>
+            <p class="text-muted"><strong>Category:</strong> {{ product.category }}</p>
+            <p class="text-muted"><strong>SubCategory:</strong> {{ product.subcategory }}</p>
+            <p class="text-muted"><strong>Type:</strong> {{ product.product_type }}</p>
+            <p class="text-muted"><strong>Colour:</strong> {{ product.colour }}</p>
+            <p class="text-muted"><strong>Usage:</strong> {{ product.usage }}</p>
+
+            <!-- زر الشراء -->
+            <div class="mt-4">
+                <a href="#" class="btn btn-success btn-lg"><i class="bi bi-cart"></i> Buy Now</a>
+                <a href="#" class="btn btn-outline-secondary btn-lg"><i class="bi bi-heart"></i> Add to Wishlist</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- قسم التوصيات -->
+<div class="container mt-5">
+    <h2 class="text-center mb-4 text-primary">You May Also Like</h2>
+    <div class="row">
+        {% if recommendations %}
+            {% for rec in recommendations %}
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-img-top" style="height: 200px; overflow: hidden;">
+                        <img src="{{ rec.image_url }}" 
+                             class="img-fluid w-100" 
+                             alt="{{ rec.product_name }}" 
+                             style="object-fit: cover; height: 100%;">
+                    </div>
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-truncate">{{ rec.product_name }}</h5>
+                        <p class="card-text text-muted small">Category: {{ rec.category }}</p>
+                        <a href="/product/{{ rec.product_id }}" class="btn btn-primary btn-sm">View Details</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-center">No recommendations available for this product.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

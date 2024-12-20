@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Fashion Store{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- عنوان الصفحة -->
+    <h1 class="text-center mb-5 display-4 fw-bold text-primary">Welcome to Fashion Store</h1>
+
+    <!-- قسم المنتجات الأكثر مبيعًا -->
+    <section class="mb-5">
+        <h2 class="text-secondary mb-4 text-uppercase fw-bold">Top Selling Products</h2>
+        <div class="row">
+            {% for product in top_selling %}
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-img-top" style="height: 250px; overflow: hidden;">
+                        <img src="{{ product.image_url }}" class="img-fluid w-100" alt="{{ product.product_name }}" style="object-fit: cover; height: 100%;">
+                    </div>
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-truncate fw-bold">{{ product.product_name }}</h5>
+                        <p class="text-muted small">Category: {{ product.category }}</p>
+                        <a href="/product/{{ product.product_id }}" class="btn btn-outline-primary btn-sm">View Details</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- قسم جميع المنتجات -->
+    <section>
+        <h2 class="text-secondary mb-4 text-uppercase fw-bold">All Products</h2>
+        <div class="row">
+            {% for product in products %}
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-img-top" style="height: 250px; overflow: hidden;">
+                        <img src="{{ product.image_url }}" class="img-fluid w-100" alt="{{ product.product_name }}" style="object-fit: cover; height: 100%;">
+                    </div>
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-truncate fw-bold">{{ product.product_name }}</h5>
+                        <p class="text-muted small">Category: {{ product.category }}</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <a href="/product/{{ product.product_id }}" class="btn btn-primary btn-sm">View Details</a>
+                            <span class="badge bg-success text-white p-2">New</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- التنقل بين الصفحات -->
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center mt-4">
+            {% if has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="/?page={{ page - 1 }}">Previous</a>
+            </li>
+            {% endif %}
+            {% if has_next %}
+            <li class="page-item">
+                <a class="page-link" href="/?page={{ page + 1 }}">Next</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+{% endblock %}
